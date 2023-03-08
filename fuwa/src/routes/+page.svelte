@@ -1,2 +1,5 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<h1>Welcome to Fuwa</h1>
+<p>this path will probably be deleted so until we will just ignore it</p>
+
+<p>to go to chats <a href="/chat/test123">click here</a></p>
+<p>to go to auth <a href="/auth">click here</a></p>
