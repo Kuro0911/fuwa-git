@@ -27,6 +27,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"react-clock": "^4.1.0"
+		"react-clock": "^4.1.0",
+		"svelte-avatar": "^1.2.0"
 	}
 }
