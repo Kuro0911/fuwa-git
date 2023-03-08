@@ -2,6 +2,7 @@
 	import Navbar from '$lib/components/(chat)/Navbar/Navbar.svelte';
 	import ChatDrawer from '$lib/components/(chat)/ChatDrawer/ChatDrawer.svelte';
 	import UserDrawer from '$lib/components/(chat)/UserDrawer/UserDrawer.svelte';
+	import { MOCK_USER } from '$lib/utils/data-store';
 </script>
 
 <div class="container">
@@ -17,7 +18,7 @@
 		</div>
 	</div>
 	<div class="container-right">
-		<UserDrawer />
+		<UserDrawer user={MOCK_USER} />
 	</div>
 </div>
 
@@ -33,7 +34,8 @@
 		width: 80%;
 	}
 	.container-right {
-		background-color: yellowgreen;
+		background-image: url('https://i.pinimg.com/originals/7c/67/c7/7c67c78da4a423af49d45dd926e5455c.gif');
+		background-position: center;
 		width: 20%;
 	}
 	.chat-left {
