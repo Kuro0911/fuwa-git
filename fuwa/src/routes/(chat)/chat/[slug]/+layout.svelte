@@ -4,9 +4,44 @@
 	import UserDrawer from '$lib/components/(chat)/UserDrawer/UserDrawer.svelte';
 </script>
 
-<Navbar />
-<div style="display: flex;justify-content: space-between;">
-	<ChatDrawer />
-	<slot />
-	<UserDrawer />
+<div class="container">
+	<div class="container-left">
+		<Navbar />
+		<div class="wrap">
+			<div class="chat-left">
+				<ChatDrawer />
+			</div>
+			<div class="chat-center">
+				<slot />
+			</div>
+		</div>
+	</div>
+	<div class="container-right">
+		<UserDrawer />
+	</div>
 </div>
+
+<style lang="scss">
+	.container {
+		display: flex;
+	}
+	.wrap {
+		display: flex;
+		justify-content: space-between;
+	}
+	.container-left {
+		width: 80%;
+	}
+	.container-right {
+		background-color: yellowgreen;
+		width: 20%;
+	}
+	.chat-left {
+		background-color: lightblue;
+		width: 20%;
+	}
+	.chat-center {
+		background-color: pink;
+		width: 80%;
+	}
+</style>

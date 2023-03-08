@@ -1,1 +1,7 @@
-<h1>left drawer</h1>
+<div class="drawer">left drawer</div>
+
+<style lang="scss">
+	.drawer {
+		height: 85vh;
+	}
+</style>
