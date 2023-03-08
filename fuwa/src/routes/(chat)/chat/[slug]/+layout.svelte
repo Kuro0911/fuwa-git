@@ -1,8 +1,12 @@
-<script></script>
+<script>
+	import Navbar from '$lib/components/(chat)/Navbar/Navbar.svelte';
+	import ChatDrawer from '$lib/components/(chat)/ChatDrawer/ChatDrawer.svelte';
+	import UserDrawer from '$lib/components/(chat)/UserDrawer/UserDrawer.svelte';
+</script>
 
-<h1>navbar</h1>
+<Navbar />
 <div style="display: flex;justify-content: space-between;">
-	<h1>left drawer</h1>
+	<ChatDrawer />
 	<slot />
-	<h1>right drawer</h1>
+	<UserDrawer />
 </div>
