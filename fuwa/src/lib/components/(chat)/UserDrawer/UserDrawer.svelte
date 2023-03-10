@@ -1,7 +1,7 @@
 <script>
 	import Clock from './Clock.svelte';
-	import Avatar from 'svelte-avatar';
 	import LeftArrow from '$lib/assets/svg/leftArrow.svelte';
+	import Avatar from '../Avatar/Avatar.svelte';
 	export let user;
 </script>
 
@@ -13,10 +13,7 @@
 				<Clock />
 			</div>
 			<div class="bottom">
-				<div class="tag">
-					<Avatar name={user.name} src={user.profile_picture} size="80px" loading="false" />
-					<span class="user_name">{user.name}</span>
-				</div>
+				<Avatar name={user.name} src={user.profile_picture} size="w-24" font_size="1.65em" />
 				<div class="menu">
 					<span>Change Profile Picture</span>
 					<span>Change Username</span>
@@ -63,15 +60,7 @@
 		padding: 1em;
 		background-color: #161616;
 	}
-	.tag {
-		display: flex;
-		align-items: center;
-	}
-	.user_name {
-		font-size: 2.25em;
-		margin-left: 0.5em;
-		color: white;
-	}
+
 	.menu {
 		display: flex;
 		flex-direction: column;

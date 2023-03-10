@@ -1,0 +1,39 @@
+<script>
+	export let name, src, size, font_size;
+
+	function cssVariables(node, variables) {
+		setCssVariables(node, variables);
+
+		return {
+			update(variables) {
+				setCssVariables(node, variables);
+			}
+		};
+	}
+	function setCssVariables(node, variables) {
+		for (const name in variables) {
+			node.style.setProperty(`--${name}`, variables[name]);
+		}
+	}
+</script>
+
+<div class="tag">
+	<div class="avatar">
+		<div class={`rounded-full ${size}`}>
+			<img {src} alt="user" />
+		</div>
+	</div>
+	<span class="user_name" use:cssVariables={{ font_size }}>{name}</span>
+</div>
+
+<style>
+	.tag {
+		display: flex;
+		align-items: center;
+	}
+	.user_name {
+		font-size: var(--font_size);
+		margin-left: 0.5em;
+		color: white;
+	}
+</style>
