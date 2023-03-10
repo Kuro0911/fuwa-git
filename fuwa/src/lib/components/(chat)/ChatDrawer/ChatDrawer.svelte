@@ -14,5 +14,6 @@
 		height: 85vh;
 		display: flex;
 		flex-direction: column;
+		overflow: scroll;
 	}
 </style>

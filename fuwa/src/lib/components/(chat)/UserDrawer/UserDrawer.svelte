@@ -13,7 +13,7 @@
 				<Clock />
 			</div>
 			<div class="bottom">
-				<Avatar name={user.name} src={user.profile_picture} size="w-24" font_size="1.65em" />
+				<Avatar name={user.name} src={user.profile_picture} size="w-20" font_size="1.55em" />
 				<div class="menu">
 					<span>Change Profile Picture</span>
 					<span>Change Username</span>
@@ -50,6 +50,7 @@
 		height: 100%;
 		display: flex;
 		flex-direction: column;
+		overflow: hidden;
 	}
 	.top {
 		padding: 2em;

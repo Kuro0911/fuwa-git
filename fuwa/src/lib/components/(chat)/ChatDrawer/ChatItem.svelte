@@ -1,17 +1,52 @@
 <script>
-	import Avatar from '../Avatar/Avatar.svelte';
 	export let user;
 </script>
 
-<div class="chat">
-	<Avatar name={user.name} src={user.profile_picture} size="w-10" font_size="1em" />
+<div class="tag">
+	<div class="avatar">
+		<div class={`rounded-full w-10`}>
+			<img src={user.profile_picture} alt="user" />
+		</div>
+	</div>
+	<div class="flex flex-col ml-4 w-full">
+		<div class="flex justify-between w-full">
+			<span class="user_name">{user.name}</span>
+			<span class="time">{user.last_message_time}</span>
+		</div>
+		<div>
+			<p class="message">
+				{user.last_message.length > 22
+					? user.last_message.substring(0, 22) + '...'
+					: user.last_message}
+			</p>
+		</div>
+	</div>
+</div>
+<div class="flex justify-end w-full">
+	<div class={`line ${user.active === true ? 'act' : ''}`} />
 </div>
 
 <style lang="scss">
 	.chat {
 		height: 4em;
-		padding: 1em;
+		padding: 0.25em;
 		background-color: black;
-		border: 1px solid white;
+	}
+	.line {
+		height: 1px;
+		width: 80%;
+		background-color: lightgray;
+	}
+	.act {
+		background-color: #ff00e5;
+	}
+	.tag {
+		display: flex;
+		align-items: center;
+		padding: 0.5em;
+	}
+	.user_name {
+		font-size: 1em;
+		color: white;
 	}
 </style>

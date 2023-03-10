@@ -30,6 +30,8 @@
 	.tag {
 		display: flex;
 		align-items: center;
+		position: relative;
+		z-index: 999;
 	}
 	.user_name {
 		font-size: var(--font_size);

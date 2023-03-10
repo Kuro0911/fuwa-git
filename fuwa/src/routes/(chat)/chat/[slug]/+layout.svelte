@@ -39,11 +39,11 @@
 		width: 20%;
 	}
 	.chat-left {
-		background-color: lightblue;
-		width: 20%;
+		width: 25%;
+		background-color: black;
 	}
 	.chat-center {
 		background-color: pink;
-		width: 80%;
+		width: 85%;
 	}
 </style>
