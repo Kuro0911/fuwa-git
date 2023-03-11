@@ -1,5 +1,5 @@
 <script>
-	export let name, src, size, font_size;
+	export let name, src, size, font_size, show_name;
 
 	function cssVariables(node, variables) {
 		setCssVariables(node, variables);
@@ -23,7 +23,10 @@
 			<img {src} alt="user" />
 		</div>
 	</div>
-	<span class="user_name" use:cssVariables={{ font_size }}>{name}</span>
+	<span
+		class={`user_name ${show_name === 'false' ? 'hidden' : ''}`}
+		use:cssVariables={{ font_size }}>{name}</span
+	>
 </div>
 
 <style>

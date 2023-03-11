@@ -1,5 +1,7 @@
 <script>
+	import Avatar from '../Avatar/Avatar.svelte';
 	import Searchbar from './Searchbar.svelte';
+	import { SINGLE_USER_CHAT } from '$lib/utils/data-store';
 </script>
 
 <div class="navbar">
@@ -14,8 +16,13 @@
 	<div class="right">
 		<div class="right-left">active?</div>
 		<div class="right-center">
-			<span>name</span>
-			<span>Avatar</span>
+			<Avatar
+				name={SINGLE_USER_CHAT.name}
+				src={SINGLE_USER_CHAT.profile_picture}
+				size="w-20"
+				show_name="false"
+			/>
+			<span class="font-sans text-xl font-bold">{SINGLE_USER_CHAT.name}</span>
 		</div>
 		<div class="right-right">icons</div>
 	</div>
@@ -39,6 +46,10 @@
 	}
 	.left-bottom {
 		width: 100%;
+		margin-top: 1em;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 	.right {
 		width: 75%;
