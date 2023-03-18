@@ -9,13 +9,14 @@
 	import Hamburger from '$lib/assets/svg/hamburger.svelte';
 	import Active from '$lib/assets/svg/active.svelte';
 	import NotActive from '$lib/assets/svg/not_active.svelte';
+	import Logo from '$lib/assets/svg/logo.svelte';
 </script>
 
 <div class="navbar">
 	<div class="left">
 		<div class="left-top">
 			<div class="logo-container">
-				<h1>fuwa</h1>
+				<Logo />
 			</div>
 		</div>
 		<div class="left-bottom"><Searchbar /></div>
@@ -73,14 +74,17 @@
 	}
 	.left-top {
 		width: 100%;
-		text-align: left;
+		display: flex;
+		justify-content: center;
+	}
+	.logo-container {
+		margin-bottom: 1em;
+		margin-right: 2em;
 	}
 	.left-bottom {
 		width: 100%;
 		margin-top: 1em;
 		display: flex;
-		align-items: center;
-		justify-content: center;
 	}
 	.right {
 		width: 75%;

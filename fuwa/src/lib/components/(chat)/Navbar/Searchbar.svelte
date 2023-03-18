@@ -31,7 +31,7 @@
 	.searchbar {
 		background-color: white;
 		display: flex;
-		width: 80%;
+		width: 90%;
 		border-radius: 20px;
 	}
 	.search {

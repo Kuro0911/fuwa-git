@@ -5,7 +5,9 @@
 
 <div class="drawer">
 	{#each MOCK_USER_CHATS as chat}
-		<ChatItem user={chat} />
+		<a href={`/chat/${chat.id}`}>
+			<ChatItem user={chat} />
+		</a>
 	{/each}
 </div>
 

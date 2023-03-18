@@ -1,5 +1,6 @@
 <script>
 	export let user;
+	import { page } from '$app/stores';
 </script>
 
 <div class="tag">
@@ -23,7 +24,7 @@
 	</div>
 </div>
 <div class="flex justify-end w-full">
-	<div class={`line ${user.active === true ? 'act' : ''}`} />
+	<div class={`line ${user.id === $page.params.slug ? 'act' : ''}`} />
 </div>
 
 <style lang="scss">
