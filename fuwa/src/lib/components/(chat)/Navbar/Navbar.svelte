@@ -2,6 +2,13 @@
 	import Avatar from '../Avatar/Avatar.svelte';
 	import Searchbar from './Searchbar.svelte';
 	import { SINGLE_USER_CHAT } from '$lib/utils/data-store';
+	import Search from '$lib/assets/svg/search.svelte';
+	import Gallery from '$lib/assets/svg/gallery.svelte';
+	import Mic from '$lib/assets/svg/mic.svelte';
+	import Phone from '$lib/assets/svg/phone.svelte';
+	import Hamburger from '$lib/assets/svg/hamburger.svelte';
+	import Active from '$lib/assets/svg/active.svelte';
+	import NotActive from '$lib/assets/svg/not_active.svelte';
 </script>
 
 <div class="navbar">
@@ -14,7 +21,15 @@
 		<div class="left-bottom"><Searchbar /></div>
 	</div>
 	<div class="right">
-		<div class="right-left">active?</div>
+		<div class="right-left">
+			<div class="icon">
+				{#if SINGLE_USER_CHAT.active}
+					<Active />
+				{:else}
+					<NotActive />
+				{/if}
+			</div>
+		</div>
 		<div class="right-center">
 			<Avatar
 				name={SINGLE_USER_CHAT.name}
@@ -24,7 +39,23 @@
 			/>
 			<span class="font-sans text-xl font-bold">{SINGLE_USER_CHAT.name}</span>
 		</div>
-		<div class="right-right">icons</div>
+		<div class="right-right">
+			<div class="icon">
+				<Search />
+			</div>
+			<div class="icon">
+				<Gallery />
+			</div>
+			<div class="icon">
+				<Mic />
+			</div>
+			<div class="icon">
+				<Phone />
+			</div>
+			<div class="icon">
+				<Hamburger />
+			</div>
+		</div>
 	</div>
 </div>
 
@@ -66,5 +97,10 @@
 	}
 	.right-right {
 		width: 30%;
+		display: flex;
+		justify-content: center;
+	}
+	.icon {
+		margin: 0.65em;
 	}
 </style>

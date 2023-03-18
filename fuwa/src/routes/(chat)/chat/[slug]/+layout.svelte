@@ -43,7 +43,6 @@
 		background-color: black;
 	}
 	.chat-center {
-		background-color: pink;
 		width: 85%;
 	}
 </style>
