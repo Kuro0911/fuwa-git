@@ -1,5 +1,6 @@
 <script>
 	import { MOCK_USER } from '$lib/utils/data-store';
+	import { page } from '$app/stores';
 </script>
 
 <div class="wrap">
