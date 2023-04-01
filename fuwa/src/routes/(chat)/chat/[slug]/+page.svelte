@@ -1,11 +1,20 @@
 <script>
 	import { MOCK_USER } from '$lib/utils/data-store';
 	import { page } from '$app/stores';
+	import { db } from '../../../../lib/firebase';
+	import { collection, addDoc, getDocs } from 'firebase/firestore';
 
 	let message = '';
 	const handleChange = (e) => {
 		message = e.target.value;
 	};
+
+	const addMessage = async (e) => {
+		const messageRef = await addDoc(collection(db, 'message'), {
+			
+		});
+	};
+
 	const sendMessage = () => {
 		console.log(message);
 	};

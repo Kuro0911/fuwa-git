@@ -1,5 +1,25 @@
 <script>
 	let curr = 'email/phone';
+	import { db } from '../../../../../lib/firebase';
+	import { collection, addDoc, getDocs, setDoc, doc } from 'firebase/firestore';
+
+	let email_or_mobile = '';
+
+	const handleEmailOrMobile = (e) => {
+		email_or_mobile = e.target.value;
+	};
+
+	const addEmailToDetails = async () => {
+		try {
+			const data = {
+				active: true
+			};
+			const detailsRef = await setDoc(doc(db, `${email_or_mobile}`, 'details'), data);
+			console.log(detailsRef);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 </script>
 
 <div class="w-screen h-screen flex items-center justify-center flex-col">
@@ -16,10 +36,11 @@
 				type="text"
 				placeholder="Type here"
 				class="input input-bordered input-accent w-full max-w-xs mb-12"
+				on:change={handleEmailOrMobile}
 			/>
 			<div class="card-actions justify-end">
 				<a href="./otp">
-					<button class="btn btn-primary">Next</button>
+					<button class="btn btn-primary" on:click={addEmailToDetails}>Next</button>
 				</a>
 			</div>
 		</div>
