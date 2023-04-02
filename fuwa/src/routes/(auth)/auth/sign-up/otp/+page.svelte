@@ -1,4 +1,11 @@
 <script>
+	import { current_user } from '../../../../../lib/utils/store';
+
+	let user_id = '';
+	current_user.subscribe((val) => {
+		user_id = val;
+	});
+
 	let OTP = ['', '', '', ''];
 	const handleChange = (e, idx) => {
 		OTP[idx] = e.target.value;
@@ -51,6 +58,7 @@
 			<div class="card-actions justify-end">
 				<a href="./details">
 					<button class="btn btn-primary" on:click={Next}>Next</button>
+					({user_id.toLowerCase()})
 				</a>
 			</div>
 		</div>
