@@ -2,6 +2,13 @@
 	let curr = 'email/phone';
 	import { db } from '../../../../../lib/firebase';
 	import { collection, addDoc, getDocs, setDoc, doc } from 'firebase/firestore';
+	import { current_user } from '../../../../../lib/utils/store';
+
+	let user_id = '';
+
+	current_user.subscribe((val) => {
+		user_id = val;
+	});
 
 	let email_or_mobile = '';
 
@@ -15,6 +22,7 @@
 				active: true
 			};
 			const detailsRef = await setDoc(doc(db, `${email_or_mobile}`, 'details'), data);
+			current_user.set(email_or_mobile);
 			console.log(detailsRef);
 		} catch (error) {
 			console.log(error);
