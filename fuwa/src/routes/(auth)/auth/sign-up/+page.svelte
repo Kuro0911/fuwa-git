@@ -1,9 +1,9 @@
 <script>
 	let curr = 'email/phone';
-	import { db, auth } from '../../../../../lib/firebase';
+	import { db, auth } from '$lib/firebase';
 	import { collection, addDoc, getDocs, setDoc, doc } from 'firebase/firestore';
 	import { createUserWithEmailAndPassword, onAuthStateChanged, updateProfile } from 'firebase/auth';
-	import { current_user } from '../../../../../lib/utils/store';
+	import { current_user } from '$lib/utils/store';
 
 	let user_id = '';
 
@@ -38,7 +38,6 @@
 	const signIn = async () => {
 		try {
 			const user = await createUserWithEmailAndPassword(auth, email, password);
-
 			addEmailToDetails();
 			email = '';
 			password = '';
@@ -63,12 +62,6 @@
 </script>
 
 <div class="w-screen h-screen flex items-center justify-center flex-col">
-	<ul class="steps steps-vertical lg:steps-horizontal mb-12">
-		<li class="step step-primary">Email / Phone Number</li>
-		<li class="step">OTP</li>
-		<li class="step">Details</li>
-		<li class="step">All Set</li>
-	</ul>
 	<div class="card w-96 bg-neutral-focus shadow-xl">
 		<div class="card-body h-full">
 			<h1 class="card-title mb-6">Enter E-mail Address</h1>
@@ -96,9 +89,7 @@
 				on:change={handleFullName}
 			/>
 			<div class="card-actions justify-end">
-				<a href="./otp">
-					<button class="btn btn-primary" on:click={signIn}>Next</button>
-				</a>
+				<button class="btn btn-primary" on:click={signIn}>Next</button>
 			</div>
 		</div>
 	</div>
