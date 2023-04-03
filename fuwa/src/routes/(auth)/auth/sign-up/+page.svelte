@@ -62,35 +62,65 @@
 </script>
 
 <div class="w-screen h-screen flex items-center justify-center flex-col">
-	<div class="card w-96 bg-neutral-focus shadow-xl">
-		<div class="card-body h-full">
-			<h1 class="card-title mb-6">Enter E-mail Address</h1>
-			<input
-				type="email"
-				placeholder="Type here"
-				class="input input-bordered input-accent w-full max-w-xs mb-12"
-				bind:value={email}
-				on:change={handleEmail}
-			/>
-			<h1 class="card-title mb-6">Enter Password</h1>
-			<input
-				type="password"
-				placeholder="Type here"
-				class="input input-bordered input-accent w-full max-w-xs mb-12"
-				bind:value={password}
-				on:change={handlePassword}
-			/>
-			<h1 class="card-title mb-6">Enter Full Name</h1>
-			<input
-				type="text"
-				placeholder="Type here"
-				class="input input-bordered input-accent w-full max-w-xs mb-12"
-				bind:value={fullname}
-				on:change={handleFullName}
-			/>
-			<div class="card-actions justify-end">
-				<button class="btn btn-primary" on:click={signIn}>Next</button>
+	<div class="card w-96 h-80 bg-neutral-focus shadow-xl">
+		<div class="carousel carousel-vertical rounded-box">
+			<div class="carousel-item h-full">
+				<div class="card-body">
+					<h1 class="card-title mb-6">Enter E-mail Address</h1>
+					<input
+						type="email"
+						placeholder="Type here"
+						class="input w-full max-w-xs mb-12"
+						bind:value={email}
+						on:change={handleEmail}
+					/>
+					<div class="card-actions justify-end">
+						<button class="btn btn-primary">Next</button>
+					</div>
+				</div>
+			</div>
+			<div class="carousel-item h-full">
+				<div class="card-body">
+					<h1 class="card-title mb-6">Enter Password</h1>
+					<input
+						type="password"
+						placeholder="Type here"
+						class="input input-bordered input-accent w-full max-w-xs mb-12"
+						bind:value={password}
+						on:change={handlePassword}
+					/>
+					<div class="card-actions justify-end">
+						<button class="btn btn-primary">Next</button>
+					</div>
+				</div>
+			</div>
+			<div class="carousel-item h-full">
+				<div class="card-body ">
+					<h1 class="card-title mb-6">Enter Full Name</h1>
+					<input
+						type="text"
+						placeholder="Type here"
+						class="input input-bordered input-accent w-full max-w-xs mb-12"
+						bind:value={fullname}
+						on:change={handleFullName}
+					/>
+					<div class="card-actions justify-end">
+						<button class="btn btn-primary" on:click={signIn}>Sign Up</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
+
+<style>
+	input {
+		background-color: white;
+		height: 3em;
+		border-radius: 1em;
+		padding: 1em;
+	}
+	input:focus {
+		outline: none;
+	}
+</style>
