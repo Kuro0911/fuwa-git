@@ -9,12 +9,6 @@
 		message = e.target.value;
 	};
 
-	const addMessage = async (e) => {
-		const messageRef = await addDoc(collection(db, 'message'), {
-			
-		});
-	};
-
 	const sendMessage = () => {
 		console.log(message);
 	};
