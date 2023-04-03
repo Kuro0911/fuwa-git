@@ -2,6 +2,20 @@
 	import Clock from './Clock.svelte';
 	import LeftArrow from '$lib/assets/svg/leftArrow.svelte';
 	import Avatar from '../Avatar/Avatar.svelte';
+	import { db, auth } from '$lib/firebase';
+	import { signOut } from 'firebase/auth';
+
+	const userSignOut = async () => {
+		console.log('Current User: ', auth.currentUser.displayName);
+		try {
+			const userLogOut = await signOut(auth);
+			console.log('User Signed Out Succesfully!');
+			console.log(userLogOut);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	export let user;
 </script>
 
@@ -20,7 +34,7 @@
 					<label for="my-drawer-4">Settings</label>
 				</div>
 				<div class="log-out">
-					<button class="log-out-btn">Log Out</button>
+					<button class="log-out-btn" on:click={userSignOut}>Log Out</button>
 				</div>
 			</div>
 		</div>
