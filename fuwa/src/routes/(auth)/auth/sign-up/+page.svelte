@@ -62,50 +62,63 @@
 </script>
 
 <div class="w-screen h-screen flex items-center justify-center flex-col">
-	<div class="card w-96 h-80 bg-neutral-focus shadow-xl">
-		<div class="carousel carousel-vertical rounded-box">
-			<div class="carousel-item h-full">
+	<div class="card w-[40rem] h-80 bg-neutral-focus shadow-xl">
+		<div class="carousel carousel-vertical rounded-box overflow-hidden">
+			<div class="carousel-item h-full w-full" id="email">
 				<div class="card-body">
-					<h1 class="card-title mb-6">Enter E-mail Address</h1>
+					<h1 class="card-title mb-14">Enter E-mail Address</h1>
 					<input
 						type="email"
-						placeholder="Type here"
-						class="input w-full max-w-xs mb-12"
+						placeholder="example@gmail.com"
+						class="input w-full mb-12 text-black"
 						bind:value={email}
 						on:change={handleEmail}
 					/>
 					<div class="card-actions justify-end">
-						<button class="btn btn-primary">Next</button>
+						<a href="#password">
+							<button class="btn btn-primary w-36 bg-[#A020F0]">Next</button>
+						</a>
 					</div>
 				</div>
 			</div>
-			<div class="carousel-item h-full">
+			<div class="carousel-item h-full" id="password">
 				<div class="card-body">
-					<h1 class="card-title mb-6">Enter Password</h1>
+					<h1 class="card-title mb-12">Enter Password</h1>
 					<input
 						type="password"
-						placeholder="Type here"
-						class="input input-bordered input-accent w-full max-w-xs mb-12"
+						placeholder="Enter Password"
+						class="input w-full mb-12 text-black"
 						bind:value={password}
 						on:change={handlePassword}
 					/>
-					<div class="card-actions justify-end">
-						<button class="btn btn-primary">Next</button>
+					<div class="card-actions justify-between">
+						<a href="#email">
+							<button class="btn btn-primary w-36 bg-[#A020F0]">Back</button>
+						</a>
+						<a href="#name">
+							<button class="btn btn-primary w-36 bg-[#A020F0]">Next</button>
+						</a>
 					</div>
 				</div>
 			</div>
-			<div class="carousel-item h-full">
+			<div class="carousel-item h-full" id="name">
 				<div class="card-body ">
-					<h1 class="card-title mb-6">Enter Full Name</h1>
+					<h1 class="card-title mb-12">Enter Full Name</h1>
 					<input
 						type="text"
 						placeholder="Type here"
-						class="input input-bordered input-accent w-full max-w-xs mb-12"
+						class="input w-full mb-12 text-black"
 						bind:value={fullname}
 						on:change={handleFullName}
 					/>
-					<div class="card-actions justify-end">
-						<button class="btn btn-primary" on:click={signIn}>Sign Up</button>
+
+					<div class="card-actions justify-between">
+						<a href="#password">
+							<button class="btn btn-primary w-36 bg-[#A020F0]">Back</button>
+						</a>
+						<a href="/chat/123">
+							<button class="btn btn-primary w-36 bg-[#A020F0]" on:click={signIn}>Sign Up</button>
+						</a>
 					</div>
 				</div>
 			</div>

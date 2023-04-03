@@ -37,7 +37,6 @@
 <div class="input-box">
 	<input class="text-input" placeholder="Type" bind:value={message} on:input={handleChange} />
 	<button class="btn btn-accent rounded-full w-32" on:click={sendMessage}>Send</button>
-	<button />
 </div>
 
 <style lang="scss">
@@ -53,7 +52,7 @@
 	}
 	.text-input {
 		background-color: white;
-		height: 3em;
+		height: 2em;
 		width: 80%;
 		margin-right: 0.75em;
 		border-radius: 20px;

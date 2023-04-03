@@ -32,6 +32,7 @@
 		background-color: white;
 		display: flex;
 		width: 90%;
+		height: 2em;
 		border-radius: 20px;
 	}
 	.search {
