@@ -4,6 +4,7 @@
 	import { collection, addDoc, getDocs, setDoc, doc } from 'firebase/firestore';
 	import { createUserWithEmailAndPassword, onAuthStateChanged, updateProfile } from 'firebase/auth';
 	import { current_user } from '$lib/utils/store';
+	import { goto } from '$app/navigation';
 
 	let user_id = '';
 
@@ -25,6 +26,9 @@
 		fullname = e.target.value;
 	};
 
+	// check this shit out nigg
+
+	// #############################
 	onAuthStateChanged(auth, async (user) => {
 		await updateProfile(auth.currentUser, {
 			displayName: fullname
@@ -34,25 +38,32 @@
 			console.log('u-dn: ', user.displayName);
 		}
 	});
+	// #############################
 
 	const signIn = async () => {
 		try {
 			const user = await createUserWithEmailAndPassword(auth, email, password);
 			addEmailToDetails();
+			goto('/chat/123');
 			email = '';
 			password = '';
 			fullname = '';
 		} catch (error) {
 			console.log(error);
+			// add something to show failure
+			goto('/auth');
 		}
 	};
 
 	const addEmailToDetails = async () => {
 		try {
 			const data = {
-				active: true
+				active: true,
+				name: fullname,
+				profile_picture: 'add picture url'
 			};
 			const detailsRef = await setDoc(doc(db, `${email}`, 'details'), data);
+			// add the chat pool too
 			current_user.set(email);
 			// console.log(detailsRef);
 		} catch (error) {
@@ -116,9 +127,7 @@
 						<a href="#password">
 							<button class="btn btn-primary w-36 bg-[#A020F0]">Back</button>
 						</a>
-						<a href="/chat/123">
-							<button class="btn btn-primary w-36 bg-[#A020F0]" on:click={signIn}>Sign Up</button>
-						</a>
+						<button class="btn btn-primary w-36 bg-[#A020F0]" on:click={signIn}>Sign Up</button>
 					</div>
 				</div>
 			</div>

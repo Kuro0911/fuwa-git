@@ -1,6 +1,8 @@
 <script>
 	import { auth } from '$lib/firebase';
 	import { signInWithEmailAndPassword } from 'firebase/auth';
+	import { current_user } from '$lib/utils/store';
+	import { goto } from '$app/navigation';
 
 	let email = '';
 	let password = '';
@@ -13,10 +15,15 @@
 	const logIn = async () => {
 		try {
 			const userLogIn = await signInWithEmailAndPassword(auth, email, password);
-			console.log('User Log-in Successful!');
-			console.log(userLogIn);
+			current_user.set(email);
+
+			goto('/chat/123');
 		} catch (error) {
 			console.log(error);
+
+			// add something to show that pass is not right
+
+			goto('/auth');
 		}
 	};
 </script>
@@ -55,9 +62,7 @@
 						<a href="#email">
 							<button class="btn btn-primary w-36 bg-[#A020F0]">Back</button>
 						</a>
-						<a href="/chat/123">
-							<button class="btn btn-primary w-36 bg-[#A020F0]" on:click={logIn}>Log In</button>
-						</a>
+						<button class="btn btn-primary w-36 bg-[#A020F0]" on:click={logIn}>Log In</button>
 					</div>
 				</div>
 			</div>

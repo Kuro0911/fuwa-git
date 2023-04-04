@@ -2,7 +2,8 @@
 	import Navbar from '$lib/components/(chat)/Navbar/Navbar.svelte';
 	import ChatDrawer from '$lib/components/(chat)/ChatDrawer/ChatDrawer.svelte';
 	import UserDrawer from '$lib/components/(chat)/UserDrawer/UserDrawer.svelte';
-	import { MOCK_USER } from '$lib/utils/data-store';
+	import { page } from '$app/stores';
+	let details = $page.data;
 </script>
 
 <div class="container">
@@ -18,7 +19,7 @@
 		</div>
 	</div>
 	<div class="container-right">
-		<UserDrawer user={MOCK_USER} />
+		<UserDrawer user={details} />
 	</div>
 </div>
 

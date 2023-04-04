@@ -34,7 +34,9 @@
 					<label for="my-drawer-4">Settings</label>
 				</div>
 				<div class="log-out">
-					<button class="log-out-btn" on:click={userSignOut}>Log Out</button>
+					<a href="/auth">
+						<button class="log-out-btn" on:click={userSignOut}>Log Out</button>
+					</a>
 				</div>
 			</div>
 		</div>
