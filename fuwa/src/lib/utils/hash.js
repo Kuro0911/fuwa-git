@@ -71,5 +71,6 @@ export const getHash = (email) => {
 			else if (j === 25) hash += String.fromCharCode(mat[i][j] + 96);
 		}
 	}
+	mat = [];
 	return hash;
 };
