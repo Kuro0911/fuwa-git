@@ -3,7 +3,8 @@
 	import ChatDrawer from '$lib/components/(chat)/ChatDrawer/ChatDrawer.svelte';
 	import UserDrawer from '$lib/components/(chat)/UserDrawer/UserDrawer.svelte';
 	import { page } from '$app/stores';
-	let details = $page.data;
+	let data = $page.data;
+	console.log(data);
 </script>
 
 <div class="container">
@@ -11,7 +12,7 @@
 		<Navbar />
 		<div class="wrap">
 			<div class="chat-left">
-				<ChatDrawer />
+				<ChatDrawer chats={data.chats} />
 			</div>
 			<div class="chat-center">
 				<slot />
@@ -19,7 +20,7 @@
 		</div>
 	</div>
 	<div class="container-right">
-		<UserDrawer user={details} />
+		<UserDrawer user={data.details} />
 	</div>
 </div>
 

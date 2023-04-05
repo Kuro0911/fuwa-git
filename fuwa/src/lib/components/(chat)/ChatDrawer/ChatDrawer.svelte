@@ -1,6 +1,8 @@
 <script>
 	import { MOCK_USER_CHATS } from '$lib/utils/data-store';
 	import ChatItem from './ChatItem.svelte';
+	export let chats;
+	console.log(chats);
 </script>
 
 <div class="drawer">

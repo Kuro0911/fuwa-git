@@ -3,6 +3,7 @@
 	import { signInWithEmailAndPassword } from 'firebase/auth';
 	import { current_user } from '$lib/utils/store';
 	import { goto } from '$app/navigation';
+	import { getHash } from '$lib/utils/hash';
 
 	let email = '';
 	let password = '';
@@ -15,7 +16,7 @@
 	const logIn = async () => {
 		try {
 			const userLogIn = await signInWithEmailAndPassword(auth, email, password);
-			current_user.set(email);
+			current_user.set(getHash(email));
 
 			goto('/chat/123');
 		} catch (error) {
