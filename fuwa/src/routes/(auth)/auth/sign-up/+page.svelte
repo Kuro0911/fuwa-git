@@ -1,8 +1,9 @@
 <script>
 	let curr = 'email/phone';
-	import { db, auth } from '$lib/firebase';
-	import { collection, addDoc, getDocs, setDoc, doc } from 'firebase/firestore';
+	import { db, auth, storage } from '$lib/firebase';
+	import { collection, addDoc, getDocs, setDoc, doc, updateDoc } from 'firebase/firestore';
 	import { createUserWithEmailAndPassword, onAuthStateChanged, updateProfile } from 'firebase/auth';
+	import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 	import { current_user } from '$lib/utils/store';
 	import { goto } from '$app/navigation';
 	import { getHash } from '$lib/utils/hash';
@@ -22,9 +23,26 @@
 	let image;
 	let placeholder;
 	let showImage = false;
+	let pfp_url = '';
 
-	function onChange() {
+	const onChange = async () => {
 		const file = uploadImageData.files[0];
+		console.log(uploadImageData);
+
+		try {
+			if (uploadImageData === null) return;
+			const emailHash = getHash(email);
+			const imageRef = ref(storage, `${emailHash}`);
+			uploadBytes(imageRef, file).then((snapshot) => {
+				getDownloadURL(snapshot.ref).then((url) => {
+					pfp_url = url;
+				});
+			});
+			console.log(pfp_url);
+			// const currUserDocRef = doc(db, `${emailHash}`, details);
+		} catch (error) {
+			console.log(error);
+		}
 
 		if (file) {
 			showImage = true;
@@ -38,7 +56,7 @@
 			return;
 		}
 		showImage = false;
-	}
+	};
 
 	const handleEmail = (e) => {
 		email = e.target.value;
@@ -68,6 +86,7 @@
 		try {
 			const user = await createUserWithEmailAndPassword(auth, email, password);
 			addEmailToDetails();
+			current_user.set(getHash(email));
 			goto('/chat/123');
 			email = '';
 			password = '';
@@ -75,7 +94,7 @@
 		} catch (error) {
 			console.log(error);
 			// add something to show failure
-			goto('/auth');
+			// goto('/auth');
 		}
 	};
 
@@ -84,7 +103,7 @@
 			const data = {
 				active: true,
 				name: fullname,
-				profile_picture: 'add picture url'
+				profile_picture: pfp_url
 			};
 			const emailHash = getHash(email);
 			const detailsRef = await setDoc(doc(db, `${emailHash}`, 'details'), data);
