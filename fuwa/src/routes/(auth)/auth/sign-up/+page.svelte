@@ -5,6 +5,7 @@
 	import { createUserWithEmailAndPassword, onAuthStateChanged, updateProfile } from 'firebase/auth';
 	import { current_user } from '$lib/utils/store';
 	import { goto } from '$app/navigation';
+	import { getHash } from '$lib/utils/hash';
 
 	let user_id = '';
 
@@ -62,7 +63,9 @@
 				name: fullname,
 				profile_picture: 'add picture url'
 			};
-			const detailsRef = await setDoc(doc(db, `${email}`, 'details'), data);
+			const emailHash = getHash(email);
+			const detailsRef = await setDoc(doc(db, `${emailHash}`, 'details'), data);
+			const chatRef = await setDoc(doc(db, `${emailHash}`, 'chatpool'), {});
 			// add the chat pool too
 			current_user.set(email);
 			// console.log(detailsRef);
