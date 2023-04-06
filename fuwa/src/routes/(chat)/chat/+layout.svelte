@@ -4,15 +4,14 @@
 	import UserDrawer from '$lib/components/(chat)/UserDrawer/UserDrawer.svelte';
 	import { page } from '$app/stores';
 	let data = $page.data;
-	console.log(data);
 </script>
 
 <div class="container">
 	<div class="container-left">
-		<Navbar />
 		<div class="wrap">
 			<div class="chat-left">
-				<ChatDrawer chats={data.chats} />
+				<Navbar />
+				<ChatDrawer />
 			</div>
 			<div class="chat-center">
 				<slot />

@@ -1,16 +1,21 @@
 <script>
 	import { MOCK_USER_CHATS } from '$lib/utils/data-store';
 	import ChatItem from './ChatItem.svelte';
-	export let chats;
-	console.log(chats);
+	import AddNew from './addNew.svelte';
+	import { page } from '$app/stores';
+	let friends = $page.data.friends;
+	console.log(friends);
 </script>
 
 <div class="drawer">
-	{#each MOCK_USER_CHATS as chat}
-		<a href={`/chat/${chat.id}`}>
-			<ChatItem user={chat} />
+	{#each friends as friend}
+		<a href={`/chat/${friend.id}`}>
+			<ChatItem user={friend} />
 		</a>
+	{:else}
+		<button class="btn loading">loading</button>
 	{/each}
+	<AddNew />
 </div>
 
 <style lang="scss">

@@ -18,7 +18,7 @@
 			const userLogIn = await signInWithEmailAndPassword(auth, email, password);
 			current_user.set(getHash(email));
 
-			goto('/chat/123');
+			goto('/chat');
 		} catch (error) {
 			console.log(error);
 

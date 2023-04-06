@@ -3,9 +3,7 @@ import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 import { current_user } from '$lib/utils/store';
 import { redirect } from '@sveltejs/kit';
 
-let user,
-	details,
-	chats = {};
+let user;
 current_user.subscribe((val) => {
 	user = val;
 });
@@ -19,7 +17,21 @@ const fetchChats = async (f) => {
 	return messages;
 };
 
+const fetchFriendDetails = async (details) => {
+	let temp = [];
+	for (var i = 0; i < details.friends.length; i++) {
+		let friend = details.friends[i];
+		const friendRef = await getDoc(doc(db, friend, 'details'));
+		let friendData = friendRef.data();
+		temp.push({ ...friendData, id: friend });
+	}
+	return temp;
+};
+
 export const load = async () => {
+	let details,
+		chats = {},
+		friends = [];
 	try {
 		const detailsRef = await getDoc(doc(db, user, 'details'));
 		details = detailsRef.data();
@@ -33,7 +45,8 @@ export const load = async () => {
 					console.log(err);
 				});
 		}
-		return { details, chats };
+		friends = fetchFriendDetails(details);
+		return { details, chats, friends };
 	} catch (error) {
 		console.log(error);
 		throw redirect(301, '/auth');

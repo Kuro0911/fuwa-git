@@ -12,14 +12,14 @@
 	<div class="flex flex-col ml-4 w-full">
 		<div class="flex justify-between w-full">
 			<span class="user_name">{user.name}</span>
-			<span class="time">{user.last_message_time}</span>
+			<!-- <span class="time">{user.last_message_time}</span> -->
 		</div>
 		<div>
-			<p class="message">
+			<!-- <p class="message">
 				{user.last_message.length > 22
 					? user.last_message.substring(0, 22) + '...'
 					: user.last_message}
-			</p>
+			</p> -->
 		</div>
 	</div>
 </div>
