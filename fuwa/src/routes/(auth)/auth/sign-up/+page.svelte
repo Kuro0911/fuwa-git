@@ -94,7 +94,7 @@
 		} catch (error) {
 			console.log(error);
 			// add something to show failure
-			// goto('/auth');
+			goto('/auth');
 		}
 	};
 
