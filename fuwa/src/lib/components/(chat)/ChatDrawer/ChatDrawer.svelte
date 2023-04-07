@@ -12,8 +12,6 @@
 		<a href={`/chat/${friend.id}`}>
 			<ChatItem user={friend} />
 		</a>
-	{:else}
-		<button class="btn loading">loading</button>
 	{/each}
 	<AddNew />
 </div>

@@ -1,6 +1,6 @@
 <script>
 	import { db } from '$lib/firebase';
-	import { collection, doc, updateDoc } from 'firebase/firestore';
+	import { doc, updateDoc, onSnapshot } from 'firebase/firestore';
 	import { page } from '$app/stores';
 	import Active from '$lib/assets/svg/active.svelte';
 	import NotActive from '$lib/assets/svg/not_active.svelte';
@@ -11,6 +11,7 @@
 	import Phone from '$lib/assets/svg/phone.svelte';
 	import Hamburger from '$lib/assets/svg/hamburger.svelte';
 	import { current_user } from '$lib/utils/store';
+	import { onMount } from 'svelte';
 
 	function sortObject(obj) {
 		return Object.keys(obj)
@@ -24,19 +25,20 @@
 	current_user.subscribe((val) => {
 		user = val;
 	});
-	let param = $page.params.slug;
-	let curr = $page.data.details;
-	let chats = $page.data.chats[param];
-	let data = $page.data.friends;
-	let frnd = data.find((f) => f.id === param);
 	let message = '';
-	chats[0] = sortObject(chats[0]);
-
-	let processed_chats = [];
-	for (const t in chats[0]) {
-		let chatRef = chats[0][t].split('$');
-		processed_chats.push({ hash: chatRef[0], msg: chatRef[1] });
-	}
+	let chats,
+		processed_chats = [];
+	console.log($page.data.friend.id);
+	const chatRef = doc(db, user, 'chatpool', $page.data.friend.id, 'messages');
+	onSnapshot(chatRef, (docsSnap) => {
+		(chats = []), (processed_chats = []);
+		chats = docsSnap.data();
+		chats = sortObject(chats);
+		for (const t in chats) {
+			let c = chats[t].split('$');
+			processed_chats.push({ hash: c[0], msg: c[1] });
+		}
+	});
 	const handleChange = (e) => {
 		message = e.target.value;
 	};
@@ -49,7 +51,7 @@
 		new_message[timestamp] = user + '$' + message;
 		console.log(new_message);
 		// push this shit in the document;
-		const docRef = doc(db, user, 'chatpool', frnd.id, 'messages');
+		const docRef = doc(db, user, 'chatpool', $page.data.friend.id, 'messages');
 		updateDoc(docRef, new_message)
 			.then((docRef) => {
 				console.log('A New Document Field has been added to an existing document');
@@ -57,6 +59,7 @@
 			.catch((error) => {
 				console.log(error);
 			});
+		message = '';
 	};
 </script>
 
@@ -64,7 +67,7 @@
 	<div class="navbar">
 		<div class="left">
 			<div class="icon">
-				{#if frnd.active}
+				{#if $page.data.friend.active}
 					<Active />
 				{:else}
 					<NotActive />
@@ -72,8 +75,13 @@
 			</div>
 		</div>
 		<div class="center">
-			<Avatar name={frnd.name} src={frnd.profile_picture} size="w-20" show_name="false" />
-			<span class="font-sans text-xl font-bold">{frnd.name}</span>
+			<Avatar
+				name={$page.data.friend.name}
+				src={$page.data.friend.profile_picture}
+				size="w-20"
+				show_name="false"
+			/>
+			<span class="font-sans text-xl font-bold">{$page.data.friend.name}</span>
 		</div>
 		<div class="right">
 			<div class="icon">
@@ -96,12 +104,12 @@
 
 	<div class="p-4">
 		{#each processed_chats as chat}
-			{#if chat.hash === param}
+			{#if chat.hash === $page.params.slug}
 				<!-- chat for the sender -->
 				<div class="chat chat-start">
 					<div class="chat-image avatar">
 						<div class="w-12 rounded-full">
-							<img src={frnd.profile_picture} alt="pfp" />
+							<img src={$page.data.friend.profile_picture} alt="pfp" />
 						</div>
 					</div>
 					<div class="chat-bubble chat-bubble-primary">{chat.msg}</div>
@@ -111,7 +119,7 @@
 				<div class="chat chat-end">
 					<div class="chat-image avatar">
 						<div class="w-12 rounded-full">
-							<img src={curr.profile_picture} alt="pfp" />
+							<img src={$page.data.details.profile_picture} alt="pfp" />
 						</div>
 					</div>
 					<div class="chat-bubble chat-bubble-accent">{chat.msg}</div>

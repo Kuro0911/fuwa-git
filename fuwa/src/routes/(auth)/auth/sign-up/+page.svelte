@@ -87,7 +87,7 @@
 			const user = await createUserWithEmailAndPassword(auth, email, password);
 			addEmailToDetails();
 			current_user.set(getHash(email));
-			goto('/chat/123');
+			goto('/chat');
 			email = '';
 			password = '';
 			fullname = '';
@@ -103,7 +103,8 @@
 			const data = {
 				active: true,
 				name: fullname,
-				profile_picture: pfp_url
+				profile_picture: pfp_url,
+				friends: []
 			};
 			const emailHash = getHash(email);
 			const detailsRef = await setDoc(doc(db, `${emailHash}`, 'details'), data);

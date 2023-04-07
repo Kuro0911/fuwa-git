@@ -17,7 +17,7 @@ current_user.subscribe((val) => {
 // 	return messages;
 // };
 
-const fetchFriendDetails = async (details) => {
+const fetchFriendDetails = async (details, slug) => {
 	let temp = [];
 	for (var i = 0; i < details.friends.length; i++) {
 		let friend = details.friends[i];
@@ -25,12 +25,11 @@ const fetchFriendDetails = async (details) => {
 		let friendData = friendRef.data();
 		temp.push({ ...friendData, id: friend });
 	}
-	return temp;
+	return temp.find((f) => f.id === slug);
 };
 
-export const load = async () => {
-	let details,
-		friends = [];
+export const load = async ({ params }) => {
+	let details, friend;
 	try {
 		const detailsRef = await getDoc(doc(db, user, 'details'));
 		details = detailsRef.data();
@@ -44,8 +43,8 @@ export const load = async () => {
 		// 			console.log(err);
 		// 		});
 		// }
-		friends = fetchFriendDetails(details);
-		return { details, friends };
+		friend = await fetchFriendDetails(details, params.slug);
+		return { details, friend };
 	} catch (error) {
 		console.log(error);
 		throw redirect(301, '/auth');
