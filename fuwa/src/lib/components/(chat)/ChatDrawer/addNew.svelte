@@ -40,7 +40,7 @@
 			console.log(error);
 			friendError = 'Could not add friend';
 		}
-
+		email = '';
 		// create new_doc for friend
 	};
 </script>
@@ -62,7 +62,7 @@
 		</p>
 		<div class="modal-action justify-between">
 			<label for="my-modal" class="btn w-32">Close</label>
-			<button class="btn btn-info w-32" on:click={handleAddFriend}>Add</button>
+			<button for="my-modal" class="btn btn-info w-32" on:click={handleAddFriend}>Add</button>
 		</div>
 	</label>
 </label>

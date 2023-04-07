@@ -1,18 +1,41 @@
 <script>
-	import { MOCK_USER_CHATS } from '$lib/utils/data-store';
+	import { db } from '$lib/firebase';
+	import { doc, getDoc, onSnapshot } from 'firebase/firestore';
 	import ChatItem from './ChatItem.svelte';
 	import AddNew from './addNew.svelte';
-	import { page } from '$app/stores';
-	let friends = $page.data.friends;
-	console.log(friends);
+	import { current_user } from '$lib/utils/store';
+	let friends = [];
+	let details;
+	let user;
+	current_user.subscribe((val) => {
+		user = val;
+	});
+	const fetchFriendDetails = async (details) => {
+		let temp = [];
+		for (var i = 0; i < details.friends.length; i++) {
+			let friend = details.friends[i];
+			const friendRef = await getDoc(doc(db, friend, 'details'));
+			let friendData = friendRef.data();
+			temp.push({ ...friendData, id: friend });
+		}
+		return temp;
+	};
+	const chatRef = doc(db, user, 'details');
+	onSnapshot(chatRef, (docsSnap) => {
+		friends = [];
+		friends = fetchFriendDetails(docsSnap.data());
+		console.log(friends);
+	});
 </script>
 
 <div class="drawer">
-	{#each friends as friend}
-		<a href={`/chat/${friend.id}`}>
-			<ChatItem user={friend} />
-		</a>
-	{/each}
+	{#await friends then f}
+		{#each f as friend}
+			<a href={`/chat/${friend.id}`}>
+				<ChatItem user={friend} />
+			</a>
+		{/each}
+	{/await}
 	<AddNew />
 </div>
 
