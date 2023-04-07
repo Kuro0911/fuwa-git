@@ -11,7 +11,6 @@
 	import Phone from '$lib/assets/svg/phone.svelte';
 	import Hamburger from '$lib/assets/svg/hamburger.svelte';
 	import { current_user } from '$lib/utils/store';
-	import { onMount } from 'svelte';
 
 	function sortObject(obj) {
 		return Object.keys(obj)
@@ -51,9 +50,17 @@
 		new_message[timestamp] = user + '$' + message;
 		console.log(new_message);
 		// push this shit in the document;
-		const docRef = doc(db, user, 'chatpool', $page.data.friend.id, 'messages');
-		updateDoc(docRef, new_message)
-			.then((docRef) => {
+		const docRefSender = doc(db, user, 'chatpool', $page.data.friend.id, 'messages');
+		const docRefReciever = doc(db, $page.data.friend.id, 'chatpool', user, 'messages');
+		updateDoc(docRefSender, new_message)
+			.then((docRefSender) => {
+				console.log('A New Document Field has been added to an existing document');
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+		updateDoc(docRefReciever, new_message)
+			.then((docRefReciever) => {
 				console.log('A New Document Field has been added to an existing document');
 			})
 			.catch((error) => {
