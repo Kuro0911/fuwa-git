@@ -1,7 +1,7 @@
 <script>
 	import { getHash } from '$lib/utils/hash';
 	import { db, auth } from '$lib/firebase.js';
-	import { arrayUnion, getDoc, updateDoc, doc } from 'firebase/firestore';
+	import { arrayUnion, getDoc, updateDoc, doc, setDoc } from 'firebase/firestore';
 
 	let email = '';
 	let friendError = '';
@@ -19,10 +19,14 @@
 			const friendDocSnap = await getDoc(friendDocCheckRef);
 			if (!friendDocSnap.exists()) {
 				friendError = 'Email not registered with any user';
+				console.log(friendError);
 				return;
 			}
 			const currUserDocRef = doc(db, currUserHash, 'details');
 			const friendDocRef = doc(db, friendHash, 'details');
+
+			await setDoc(doc(db, currUserHash, 'chatpool', friendHash, 'messages'), {});
+			await setDoc(doc(db, friendHash, 'chatpool', currUserHash, 'messages'), {});
 
 			await updateDoc(currUserDocRef, {
 				friends: arrayUnion(friendHash)
