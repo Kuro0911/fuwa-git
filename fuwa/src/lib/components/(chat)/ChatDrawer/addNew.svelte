@@ -1,13 +1,42 @@
 <script>
 	import { getHash } from '$lib/utils/hash';
+	import { db, auth } from '$lib/firebase.js';
+	import { arrayUnion, getDoc, updateDoc, doc } from 'firebase/firestore';
 
 	let email = '';
+	let friendError = '';
 	const handleEmail = (e) => {
 		email = e.target.value;
 	};
-	const handleAddFriend = () => {
-		let friendHash = getHash(email);
-		console.log(friendHash);
+	const handleAddFriend = async () => {
+		try {
+			let friendHash = getHash(email);
+			let currUserHash = getHash(auth.currentUser.email);
+			console.log(friendHash);
+			console.log(currUserHash);
+
+			const friendDocCheckRef = doc(db, friendHash, 'details');
+			const friendDocSnap = await getDoc(friendDocCheckRef);
+			if (!friendDocSnap.exists()) {
+				friendError = 'Email not registered with any user';
+				return;
+			}
+			const currUserDocRef = doc(db, currUserHash, 'details');
+			const friendDocRef = doc(db, friendHash, 'details');
+
+			await updateDoc(currUserDocRef, {
+				friends: arrayUnion(friendHash)
+			});
+
+			await updateDoc(friendDocRef, {
+				friends: arrayUnion(currUserHash)
+			});
+			console.log('Added Succesfully');
+		} catch (error) {
+			console.log(error);
+			friendError = 'Could not add friend';
+		}
+
 		// create new_doc for friend
 	};
 </script>
