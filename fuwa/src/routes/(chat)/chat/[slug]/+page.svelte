@@ -1,5 +1,6 @@
 <script>
-	import { MOCK_USER } from '$lib/utils/data-store';
+	import { db } from '$lib/firebase';
+	import { collection, doc, updateDoc } from 'firebase/firestore';
 	import { page } from '$app/stores';
 	import Active from '$lib/assets/svg/active.svelte';
 	import NotActive from '$lib/assets/svg/not_active.svelte';
@@ -9,6 +10,7 @@
 	import Mic from '$lib/assets/svg/mic.svelte';
 	import Phone from '$lib/assets/svg/phone.svelte';
 	import Hamburger from '$lib/assets/svg/hamburger.svelte';
+	import { current_user } from '$lib/utils/store';
 
 	function sortObject(obj) {
 		return Object.keys(obj)
@@ -18,7 +20,10 @@
 				return result;
 			}, {});
 	}
-
+	let user;
+	current_user.subscribe((val) => {
+		user = val;
+	});
 	let param = $page.params.slug;
 	let curr = $page.data.details;
 	let chats = $page.data.chats[param];
@@ -37,13 +42,21 @@
 	};
 	const sendMessage = () => {
 		let date = new Date();
-		let key = date[Symbol.toPrimitive]('number');
+		let timestamp = date[Symbol.toPrimitive]('number').toString();
 
 		// add to doc using the primitive date as key and also the message as given belo
-		console.log(key);
-		console.log(message);
-		let new_message = { key: message };
+		let new_message = {};
+		new_message[timestamp] = user + '$' + message;
+		console.log(new_message);
 		// push this shit in the document;
+		const docRef = doc(db, user, 'chatpool', frnd.id, 'messages');
+		updateDoc(docRef, new_message)
+			.then((docRef) => {
+				console.log('A New Document Field has been added to an existing document');
+			})
+			.catch((error) => {
+				console.log(error);
+			});
 	};
 </script>
 
