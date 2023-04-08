@@ -1,8 +1,7 @@
 import { db } from '$lib/firebase';
 import { doc, getDoc, onSnapshot } from 'firebase/firestore';
-import { current_user } from '$lib/utils/store';
+import { current_user, final_chats } from '$lib/utils/store';
 import { redirect } from '@sveltejs/kit';
-// import { redirect } from '@sveltejs/kit';
 
 let user;
 current_user.subscribe((val) => {
@@ -45,13 +44,6 @@ export const load = async ({ params }) => {
 		let chats,
 			processed_chats = [];
 		const chatRef = doc(db, user, 'chatpool', friend.id, 'messages');
-		const tempChats = await getDoc(chatRef);
-		chats = tempChats.data();
-		chats = sortObject(chats);
-		for (const t in chats) {
-			let c = chats[t].split('$');
-			processed_chats.push({ hash: c[0], msg: c[1] });
-		}
 		onSnapshot(chatRef, (docsSnap) => {
 			(chats = []), (processed_chats = []);
 			chats = docsSnap.data();
@@ -60,9 +52,10 @@ export const load = async ({ params }) => {
 				let c = chats[t].split('$');
 				processed_chats.push({ hash: c[0], msg: c[1] });
 			}
-			console.log('test', processed_chats);
+			final_chats.set(processed_chats);
+			// console.log('test', processed_chats);
 		});
-		return { details, friend, processed_chats };
+		return { details, friend };
 	} catch (error) {
 		console.log(error);
 		throw redirect(301, '/auth');

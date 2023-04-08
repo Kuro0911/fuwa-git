@@ -10,14 +10,15 @@
 	import Mic from '$lib/assets/svg/mic.svelte';
 	import Phone from '$lib/assets/svg/phone.svelte';
 	import Hamburger from '$lib/assets/svg/hamburger.svelte';
-	import { current_user } from '$lib/utils/store';
-
-	const { data } = $page;
-	$: console.log(data);
+	import { current_user, final_chats } from '$lib/utils/store';
 
 	let user;
 	current_user.subscribe((val) => {
 		user = val;
+	});
+	let processed_chats;
+	final_chats.subscribe((val) => {
+		processed_chats = val;
 	});
 	let message = '';
 
@@ -93,8 +94,8 @@
 	</div>
 
 	<div class="p-4">
-		{#if $page.data.processed_chats.length > 0}
-			{#each $page.data.processed_chats as chat}
+		{#if processed_chats.length > 0}
+			{#each processed_chats as chat}
 				{#if chat.hash === $page.params.slug}
 					<!-- chat for the sender -->
 					<div class="chat chat-start">
@@ -117,8 +118,6 @@
 					</div>
 				{/if}
 			{/each}
-		{:else}
-			<p>loading</p>
 		{/if}
 	</div>
 </div>
