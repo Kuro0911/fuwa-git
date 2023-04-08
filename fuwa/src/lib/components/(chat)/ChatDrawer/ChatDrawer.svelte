@@ -24,7 +24,6 @@
 	onSnapshot(chatRef, (docsSnap) => {
 		friends = [];
 		friends = fetchFriendDetails(docsSnap.data());
-		console.log(friends);
 	});
 </script>
 

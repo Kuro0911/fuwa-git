@@ -1,9 +1,20 @@
 <script>
+	import { db } from '$lib/firebase';
 	import Navbar from '$lib/components/(chat)/Navbar/Navbar.svelte';
 	import ChatDrawer from '$lib/components/(chat)/ChatDrawer/ChatDrawer.svelte';
 	import UserDrawer from '$lib/components/(chat)/UserDrawer/UserDrawer.svelte';
-	import { page } from '$app/stores';
-	let data = $page.data;
+	import { doc, getDoc } from 'firebase/firestore';
+	import { current_user } from '$lib/utils/store';
+	let user;
+	current_user.subscribe((val) => {
+		user = val;
+	});
+
+	const fetch = async () => {
+		const detailsRef = await getDoc(doc(db, user, 'details'));
+		return detailsRef.data();
+	};
+	let details = fetch();
 </script>
 
 <div class="container">
@@ -18,9 +29,11 @@
 			</div>
 		</div>
 	</div>
-	<div class="container-right">
-		<UserDrawer user={data.details} />
-	</div>
+	{#await details then det}
+		<div class="container-right">
+			<UserDrawer user={det} />
+		</div>
+	{/await}
 </div>
 
 <style lang="scss">

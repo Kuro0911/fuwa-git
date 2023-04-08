@@ -12,32 +12,15 @@
 	import Hamburger from '$lib/assets/svg/hamburger.svelte';
 	import { current_user } from '$lib/utils/store';
 
-	function sortObject(obj) {
-		return Object.keys(obj)
-			.sort()
-			.reduce(function (result, key) {
-				result[key] = obj[key];
-				return result;
-			}, {});
-	}
+	const { data } = $page;
+	$: console.log(data);
+
 	let user;
 	current_user.subscribe((val) => {
 		user = val;
 	});
 	let message = '';
-	let chats,
-		processed_chats = [];
-	console.log($page.data.friend.id);
-	const chatRef = doc(db, user, 'chatpool', $page.data.friend.id, 'messages');
-	onSnapshot(chatRef, (docsSnap) => {
-		(chats = []), (processed_chats = []);
-		chats = docsSnap.data();
-		chats = sortObject(chats);
-		for (const t in chats) {
-			let c = chats[t].split('$');
-			processed_chats.push({ hash: c[0], msg: c[1] });
-		}
-	});
+
 	const handleChange = (e) => {
 		message = e.target.value;
 	};
@@ -110,29 +93,33 @@
 	</div>
 
 	<div class="p-4">
-		{#each processed_chats as chat}
-			{#if chat.hash === $page.params.slug}
-				<!-- chat for the sender -->
-				<div class="chat chat-start">
-					<div class="chat-image avatar">
-						<div class="w-12 rounded-full">
-							<img src={$page.data.friend.profile_picture} alt="pfp" />
+		{#if $page.data.processed_chats.length > 0}
+			{#each $page.data.processed_chats as chat}
+				{#if chat.hash === $page.params.slug}
+					<!-- chat for the sender -->
+					<div class="chat chat-start">
+						<div class="chat-image avatar">
+							<div class="w-12 rounded-full">
+								<img src={$page.data.friend.profile_picture} alt="pfp" />
+							</div>
 						</div>
+						<div class="chat-bubble chat-bubble-primary">{chat.msg}</div>
 					</div>
-					<div class="chat-bubble chat-bubble-primary">{chat.msg}</div>
-				</div>
-			{:else}
-				<!-- chat for the reciver -->
-				<div class="chat chat-end">
-					<div class="chat-image avatar">
-						<div class="w-12 rounded-full">
-							<img src={$page.data.details.profile_picture} alt="pfp" />
+				{:else}
+					<!-- chat for the reciver -->
+					<div class="chat chat-end">
+						<div class="chat-image avatar">
+							<div class="w-12 rounded-full">
+								<img src={$page.data.details.profile_picture} alt="pfp" />
+							</div>
 						</div>
+						<div class="chat-bubble chat-bubble-accent">{chat.msg}</div>
 					</div>
-					<div class="chat-bubble chat-bubble-accent">{chat.msg}</div>
-				</div>
-			{/if}
-		{/each}
+				{/if}
+			{/each}
+		{:else}
+			<p>loading</p>
+		{/if}
 	</div>
 </div>
 <div class="input-box">
