@@ -1,9 +1,10 @@
-import { db } from '$lib/firebase';
+import { db, auth } from '$lib/firebase';
 import { doc, getDoc, onSnapshot } from 'firebase/firestore';
 import { current_user, final_chats } from '$lib/utils/store';
 import { redirect } from '@sveltejs/kit';
+import { getHash } from '/utils/hash.js';
 
-let user;
+let user = getHash(auth.currentUser.email);
 current_user.subscribe((val) => {
 	user = val;
 });

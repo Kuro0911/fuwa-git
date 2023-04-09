@@ -27,7 +27,7 @@
 
 	const onChange = async () => {
 		const file = uploadImageData.files[0];
-		console.log(uploadImageData);
+		// console.log(uploadImageData);
 
 		try {
 			if (uploadImageData === null) return;
