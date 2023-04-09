@@ -29,9 +29,9 @@
 			<div class="bottom">
 				<Avatar name={user.name} src={user.profile_picture} size="w-20" font_size="1.55em" />
 				<div class="menu">
-					<span>Change Profile Picture</span>
-					<span>Change Username</span>
-					<label for="my-drawer-4">Settings</label>
+					<span class="cursor-pointer">Change Profile Picture</span>
+					<span class="cursor-pointer">Change Username</span>
+					<label for="my-drawer-4 cursor-pointer">Settings</label>
 				</div>
 				<div class="log-out">
 					<a href="/auth">
