@@ -31,7 +31,7 @@
 				<div class="menu">
 					<span class="cursor-pointer">Change Profile Picture</span>
 					<span class="cursor-pointer">Change Username</span>
-					<label for="my-drawer-4 cursor-pointer">Settings</label>
+					<label for="my-drawer-4" class="cursor-pointer">Settings</label>
 				</div>
 				<div class="log-out">
 					<a href="/auth">
@@ -46,7 +46,7 @@
 		<label for="my-drawer-4" class="drawer-overlay" />
 		<div class="settings">
 			<div class="menu-top">
-				<label for="my-drawer-4" class="menu-back"><LeftArrow /></label>
+				<label for="my-drawer-4" class="menu-back cursor-pointer"><LeftArrow /></label>
 				<span class="menu-head">Settings</span>
 			</div>
 			<div class="menu-drawer">

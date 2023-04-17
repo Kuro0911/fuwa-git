@@ -11,6 +11,7 @@
 	import Phone from '$lib/assets/svg/phone.svelte';
 	import Hamburger from '$lib/assets/svg/hamburger.svelte';
 	import { current_user, final_chats } from '$lib/utils/store';
+	import Send from '$lib/assets/svg/send.svelte';
 
 	let user;
 	current_user.subscribe((val) => {
@@ -92,38 +93,54 @@
 			</div>
 		</div>
 	</div>
-
-	<div class="p-4">
-		{#if processed_chats.length > 0}
-			{#each processed_chats as chat}
-				{#if chat.hash === $page.params.slug}
-					<!-- chat for the sender -->
-					<div class="chat chat-start">
-						<div class="chat-image avatar">
-							<div class="w-12 rounded-full">
-								<img src={$page.data.friend.profile_picture} alt="pfp" />
+	<div class="container">
+		<div class="bubbles">
+			<span style="--i:12;" />
+			<span style="--i:14;" />
+			<span style="--i:11;" />
+			<span style="--i:12;" />
+			<span style="--i:21;" />
+			<span style="--i:26;" />
+			<span style="--i:24;" />
+			<span style="--i:10;" />
+			<span style="--i:14;" />
+			<span style="--i:13;" />
+			<span style="--i:11;" />
+		</div>
+		<div class="p-4">
+			{#if processed_chats.length > 0}
+				{#each processed_chats as chat}
+					{#if chat.hash === $page.params.slug}
+						<!-- chat for the sender -->
+						<div class="chat chat-start">
+							<div class="chat-image avatar">
+								<div class="w-12 rounded-full">
+									<img src={$page.data.friend.profile_picture} alt="pfp" />
+								</div>
 							</div>
+							<div class="chat-bubble chat-bubble-primary">{chat.msg}</div>
 						</div>
-						<div class="chat-bubble chat-bubble-primary">{chat.msg}</div>
-					</div>
-				{:else}
-					<!-- chat for the reciver -->
-					<div class="chat chat-end">
-						<div class="chat-image avatar">
-							<div class="w-12 rounded-full">
-								<img src={$page.data.details.profile_picture} alt="pfp" />
+					{:else}
+						<!-- chat for the reciver -->
+						<div class="chat chat-end">
+							<div class="chat-image avatar">
+								<div class="w-12 rounded-full">
+									<img src={$page.data.details.profile_picture} alt="pfp" />
+								</div>
 							</div>
+							<div class="chat-bubble chat-bubble-accent">{chat.msg}</div>
 						</div>
-						<div class="chat-bubble chat-bubble-accent">{chat.msg}</div>
-					</div>
-				{/if}
-			{/each}
-		{/if}
+					{/if}
+				{/each}
+			{/if}
+		</div>
 	</div>
-</div>
-<div class="input-box">
-	<input class="text-input" placeholder="Type" bind:value={message} on:input={handleChange} />
-	<button class="btn btn-accent rounded-full w-32" on:click={sendMessage}>Send</button>
+	<div class="input-box">
+		<input class="text-input" placeholder="Type" bind:value={message} on:input={handleChange} />
+		<button class="btn btn-circle" on:click={sendMessage}>
+			<Send />
+		</button>
+	</div>
 </div>
 
 <style lang="scss">
@@ -139,13 +156,12 @@
 	.text-input {
 		background-color: white;
 		height: 2em;
-		width: 80%;
+		width: 85%;
 		margin-right: 0.75em;
 		border-radius: 20px;
-		padding: 1em;
+		padding: 1.25em;
 		color: #000;
 	}
-
 	.navbar {
 		width: 100%;
 		display: flex;
@@ -166,5 +182,37 @@
 	}
 	.icon {
 		margin: 0.65em;
+	}
+	.container {
+		height: 80%;
+		position: relative;
+	}
+	.bubbles {
+		position: relative;
+		display: flex;
+		justify-content: space-around;
+	}
+	.bubbles span {
+		position: relative;
+		width: 25px;
+		height: 25px;
+		background: #ff00e5;
+		margin: 0 4px;
+		border-radius: 50%;
+		box-shadow: 0 0 0 10px #ff00e544, 0 0 50px #ff00e5, 0 0 100px #ff00e5;
+		animation: animate 20s linear infinite;
+		animation-duration: calc(200s / var(--i));
+	}
+	.bubbles span:nth-child(odd) {
+		background: #0ce2ff;
+		box-shadow: 0 0 0 10px #0ce2ff44, 0 0 50px #0ce2ff, 0 0 100px #0ce2ff;
+	}
+	@keyframes animate {
+		0% {
+			transform: translateY(80vh) scale(0);
+		}
+		100% {
+			transform: translateY(0vh) scale(1);
+		}
 	}
 </style>

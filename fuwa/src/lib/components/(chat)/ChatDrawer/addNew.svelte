@@ -36,11 +36,12 @@
 				friends: arrayUnion(currUserHash)
 			});
 			console.log('Added Succesfully');
+			email = '';
 		} catch (error) {
 			console.log(error);
 			friendError = 'Could not add friend';
 		}
-		email = '';
+
 		// create new_doc for friend
 	};
 </script>

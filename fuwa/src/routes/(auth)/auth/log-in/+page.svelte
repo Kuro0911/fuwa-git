@@ -4,6 +4,7 @@
 	import { current_user } from '$lib/utils/store';
 	import { goto } from '$app/navigation';
 	import { getHash } from '$lib/utils/hash';
+	import EllipseUp from '$lib/assets/svg/ellipse-up.svelte';
 
 	let email = '';
 	let password = '';
@@ -29,7 +30,8 @@
 	};
 </script>
 
-<div class="w-screen h-screen flex items-center justify-center flex-col">
+<div class="w-screen h-screen flex items-center justify-center flex-col overflow-hidden">
+	<EllipseUp />
 	<div class="card w-[40rem] h-80 bg-neutral-focus shadow-xl">
 		<div class="carousel carousel-vertical rounded-box overflow-hidden">
 			<div class="carousel-item h-full w-full" id="email">
