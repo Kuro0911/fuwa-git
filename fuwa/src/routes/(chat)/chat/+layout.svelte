@@ -39,6 +39,7 @@
 <style lang="scss">
 	.container {
 		display: flex;
+		max-width: none;
 	}
 	.wrap {
 		display: flex;

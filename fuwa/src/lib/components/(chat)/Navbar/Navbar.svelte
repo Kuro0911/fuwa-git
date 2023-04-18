@@ -23,6 +23,6 @@
 		margin-bottom: 1em;
 		margin-left: 1em;
 		display: flex;
-		justify-content: start;
+		justify-content: flex-start;
 	}
 </style>
