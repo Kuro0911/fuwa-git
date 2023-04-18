@@ -67,6 +67,7 @@
 		display: flex;
 		flex-direction: column;
 		overflow: hidden;
+		border-left: grey 1px solid;
 	}
 	.top {
 		padding: 2em;
@@ -75,7 +76,8 @@
 	.bottom {
 		height: 35%;
 		padding: 1em;
-		background-color: #161616;
+		background-color: black;
+		border-top: grey 1px solid;
 	}
 
 	.menu {

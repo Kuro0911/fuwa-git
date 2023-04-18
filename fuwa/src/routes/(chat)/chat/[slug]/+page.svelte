@@ -70,7 +70,7 @@
 			<Avatar
 				name={$page.data.friend.name}
 				src={$page.data.friend.profile_picture}
-				size="w-20"
+				size="w-14"
 				show_name="false"
 			/>
 			<span class="font-sans text-xl font-bold">{$page.data.friend.name}</span>
@@ -107,7 +107,7 @@
 			<span style="--i:13;" />
 			<span style="--i:11;" />
 		</div>
-		<div class="p-4">
+		<div class="p-4 ">
 			{#if processed_chats.length > 0}
 				{#each processed_chats as chat}
 					{#if chat.hash === $page.params.slug}
@@ -145,13 +145,14 @@
 
 <style lang="scss">
 	.wrap {
-		height: 90%;
+		height: 98%;
 	}
 	.input-box {
 		height: 10%;
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		background-color: #212425;
 	}
 	.text-input {
 		background-color: white;
@@ -164,21 +165,25 @@
 	}
 	.navbar {
 		width: 100%;
+		height: 5em;
 		display: flex;
 	}
 	.left {
 		width: 10%;
+		height: 100%;
 	}
 	.center {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		width: 60%;
+		height: 100%;
 	}
 	.right {
 		width: 30%;
 		display: flex;
 		justify-content: center;
+		height: 100%;
 	}
 	.icon {
 		margin: 0.65em;
@@ -186,6 +191,8 @@
 	.container {
 		height: 80%;
 		position: relative;
+		overflow: scroll;
+		scroll-behavior: auto;
 	}
 	.bubbles {
 		position: relative;

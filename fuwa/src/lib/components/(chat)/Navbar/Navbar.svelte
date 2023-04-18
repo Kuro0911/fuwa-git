@@ -16,9 +16,13 @@
 		color: white;
 		display: flex;
 		flex-direction: column;
+		border-right: grey 1px solid;
 	}
 	.logo-container {
+		width: 100%;
 		margin-bottom: 1em;
-		margin-right: 2em;
+		margin-left: 1em;
+		display: flex;
+		justify-content: start;
 	}
 </style>
