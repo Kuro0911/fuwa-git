@@ -145,7 +145,7 @@
 
 <style lang="scss">
 	.wrap {
-		height: 98%;
+		height: 100%;
 	}
 	.input-box {
 		height: 10%;
