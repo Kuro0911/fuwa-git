@@ -44,5 +44,6 @@
 		display: flex;
 		flex-direction: column;
 		overflow: scroll;
+		border-right: grey 1px solid;
 	}
 </style>

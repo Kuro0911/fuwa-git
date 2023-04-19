@@ -36,7 +36,8 @@
 	.line {
 		height: 1px;
 		width: 80%;
-		background-color: lightgray;
+		margin-right: 10px;
+		background-color: grey;
 	}
 	.act {
 		background-color: #ff00e5;

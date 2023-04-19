@@ -29,9 +29,9 @@
 			<div class="bottom">
 				<Avatar name={user.name} src={user.profile_picture} size="w-20" font_size="1.55em" />
 				<div class="menu">
-					<span>Change Profile Picture</span>
-					<span>Change Username</span>
-					<label for="my-drawer-4">Settings</label>
+					<span class="cursor-pointer">Change Profile Picture</span>
+					<span class="cursor-pointer">Change Username</span>
+					<label for="my-drawer-4" class="cursor-pointer">Settings</label>
 				</div>
 				<div class="log-out">
 					<a href="/auth">
@@ -46,7 +46,7 @@
 		<label for="my-drawer-4" class="drawer-overlay" />
 		<div class="settings">
 			<div class="menu-top">
-				<label for="my-drawer-4" class="menu-back"><LeftArrow /></label>
+				<label for="my-drawer-4" class="menu-back cursor-pointer"><LeftArrow /></label>
 				<span class="menu-head">Settings</span>
 			</div>
 			<div class="menu-drawer">
@@ -67,6 +67,7 @@
 		display: flex;
 		flex-direction: column;
 		overflow: hidden;
+		border-left: grey 1px solid;
 	}
 	.top {
 		padding: 2em;
@@ -75,7 +76,8 @@
 	.bottom {
 		height: 35%;
 		padding: 1em;
-		background-color: #161616;
+		background-color: black;
+		border-top: grey 1px solid;
 	}
 
 	.menu {
