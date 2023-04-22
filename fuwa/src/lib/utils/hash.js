@@ -51,18 +51,21 @@ function setMatrix(digest) {
 }
 
 export const getHash = (email) => {
-	fillMatrix();
-	let digest = cleanEmail(email);
-	setMatrix(digest);
-	let hash = '';
-	for (var i = 0; i < 26; i++) {
-		for (var j = 0; j < 26; j++) {
-			if (i === 0) hash += mat[i][j];
-			else if (i === 25) hash += mat[i][j];
-			else if (j === 0) hash += mat[i][j];
-			else if (j === 25) hash += mat[i][j];
+	if (email !== null && email !== undefined) {
+		fillMatrix();
+		let digest = cleanEmail(email);
+		setMatrix(digest);
+		let hash = '';
+		for (var i = 0; i < 26; i++) {
+			for (var j = 0; j < 26; j++) {
+				if (i === 0) hash += mat[i][j];
+				else if (i === 25) hash += mat[i][j];
+				else if (j === 0) hash += mat[i][j];
+				else if (j === 25) hash += mat[i][j];
+			}
 		}
+		mat = [];
+		return hash;
 	}
-	mat = [];
-	return hash;
+	return '';
 };
