@@ -4,7 +4,7 @@ import { current_user, final_chats } from '$lib/utils/store';
 import { redirect } from '@sveltejs/kit';
 import { getHash } from '$lib/utils/hash.js';
 
-let user = getHash(auth.currentUser.email);
+let user = getHash(auth.currentUser?.email);
 current_user.subscribe((val) => {
 	user = val;
 });
