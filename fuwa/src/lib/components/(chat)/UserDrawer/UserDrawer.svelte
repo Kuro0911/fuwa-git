@@ -4,6 +4,7 @@
 	import Avatar from '../Avatar/Avatar.svelte';
 	import { db, auth } from '$lib/firebase';
 	import { signOut } from 'firebase/auth';
+	import ThemeChoose from './ThemeChoose.svelte';
 
 	const userSignOut = async () => {
 		console.log('Current User: ', auth.currentUser.displayName);
@@ -15,7 +16,23 @@
 			console.log(error);
 		}
 	};
+	let items = [
+		{ title: 'Theme', content: 'Content for item 1.' },
+		{ title: 'Privacy', content: 'Content for item 1.' },
+		{ title: 'Security', content: 'Content for item 1.' },
+		{ title: 'Notifications', content: 'Content for item 2.' },
+		{ title: 'About', content: 'Content for item 3.' }
+	];
 
+	let activeItem = null;
+
+	function toggleActive(index) {
+		if (activeItem === index) {
+			activeItem = null;
+		} else {
+			activeItem = index;
+		}
+	}
 	export let user;
 </script>
 
@@ -50,12 +67,44 @@
 				<span class="menu-head">Settings</span>
 			</div>
 			<div class="menu-drawer">
-				<span>Theme</span>
-				<span>Live Wallpaper</span>
-				<span>Privacy</span>
-				<span>Security</span>
-				<span>Notifications</span>
-				<span>About</span>
+				<div class="max-w-md">
+					{#each items as item, index}
+						<button
+							class="flex items-center justify-between px-4 py-2 w-full"
+							on:click={() => toggleActive(index)}
+						>
+							<span class="font-sm">{item.title}</span>
+							{#if activeItem === index}
+								<svg
+									class="w-4 h-4 fill-current"
+									viewBox="0 0 20 20"
+									xmlns="http://www.w3.org/2000/svg"
+								>
+									<path
+										d="M10 14.142l-7.071-7.071 1.414-1.414 5.657 5.657 5.657-5.657 1.414 1.414z"
+									/>
+								</svg>
+							{:else}
+								<svg
+									class="w-4 h-4 fill-current"
+									viewBox="0 0 20 20"
+									xmlns="http://www.w3.org/2000/svg"
+								>
+									<path
+										d="M7.757 5.757l-1.414 1.414 5.657 5.657 5.657-5.657-1.414-1.414-4.243 4.243z"
+									/>
+								</svg>
+							{/if}
+						</button>
+						{#if activeItem === index}
+							{#if index === 0}
+								<ThemeChoose />
+							{:else}
+								<div class="px-4 py-2">{item.content}</div>
+							{/if}
+						{/if}
+					{/each}
+				</div>
 			</div>
 		</div>
 	</div>

@@ -4,7 +4,7 @@
 	import ChatDrawer from '$lib/components/(chat)/ChatDrawer/ChatDrawer.svelte';
 	import UserDrawer from '$lib/components/(chat)/UserDrawer/UserDrawer.svelte';
 	import { doc, getDoc } from 'firebase/firestore';
-	import { current_user } from '$lib/utils/store';
+	import { current_user, theme_url } from '$lib/utils/store';
 	let user;
 	current_user.subscribe((val) => {
 		user = val;
@@ -15,6 +15,10 @@
 		return detailsRef.data();
 	};
 	let details = fetch();
+	let url = '';
+	theme_url.subscribe((val) => {
+		url = val;
+	});
 </script>
 
 <div class="container">
@@ -30,7 +34,7 @@
 		</div>
 	</div>
 	{#await details then det}
-		<div class="container-right">
+		<div class="container-right" style={`background-image: url(${url})`}>
 			<UserDrawer user={det} />
 		</div>
 	{/await}
@@ -49,8 +53,8 @@
 		width: 80%;
 	}
 	.container-right {
-		background-image: url('https://i.pinimg.com/originals/7c/67/c7/7c67c78da4a423af49d45dd926e5455c.gif');
-		background-position: center;
+		background-repeat: no-repeat;
+		background-size: 100% 65vh;
 		width: 20%;
 	}
 	.chat-left {
