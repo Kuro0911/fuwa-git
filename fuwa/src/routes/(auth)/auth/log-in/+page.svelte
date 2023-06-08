@@ -7,6 +7,7 @@
 	import EllipseUp from '$lib/assets/svg/ellipse-up.svelte';
 
 	let email = '';
+	let error = false;
 	let password = '';
 	const handleEmail = (e) => {
 		email = e.target.value;
@@ -14,25 +15,33 @@
 	const handlePassword = (e) => {
 		password = e.target.value;
 	};
+	const sleep = (time) => {
+		return new Promise((resolve) => setTimeout(resolve, time));
+	};
 	const logIn = async () => {
 		try {
 			const userLogIn = await signInWithEmailAndPassword(auth, email, password);
 			current_user.set(getHash(email));
 
 			goto('/chat');
-		} catch (error) {
-			console.log(error);
-
-			// add something to show that pass is not right
-
-			goto('/auth');
+		} catch (err) {
+			console.log(err);
+			(email = ''), (password = '');
+			error = true;
+			await sleep(1000).then(() => {
+				error = false;
+			});
 		}
 	};
 </script>
 
 <div class="w-screen h-screen flex items-center justify-center flex-col overflow-hidden">
 	<EllipseUp />
-	<div class="card w-[40rem] h-80 bg-neutral-focus shadow-xl">
+	<div
+		class={`card w-[40rem] h-80 bg-neutral-focus shadow-xl ${
+			error === true ? 'shadow-red-500' : ''
+		}`}
+	>
 		<div class="carousel carousel-vertical rounded-box overflow-hidden">
 			<div class="carousel-item h-full w-full" id="email">
 				<div class="card-body">
