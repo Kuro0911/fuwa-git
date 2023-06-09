@@ -8,12 +8,12 @@ import { getStorage } from 'firebase/storage';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-	apiKey: 'AIzaSyDxC2ivWw1EYqrz-ZBOy97rFM66_6ynZnk',
-	authDomain: 'fuwa-test.firebaseapp.com',
-	projectId: 'fuwa-test',
-	storageBucket: 'fuwa-test.appspot.com',
-	messagingSenderId: '1083488838868',
-	appId: '1:1083488838868:web:ae2cdab3f4e4b55ef80741'
+	apiKey: 'AIzaSyDugtXaVaEJD9mYBZf4s5xb2AN0jSX4NFs',
+	authDomain: 'fuwa-prod-d8b88.firebaseapp.com',
+	projectId: 'fuwa-prod-d8b88',
+	storageBucket: 'fuwa-prod-d8b88.appspot.com',
+	messagingSenderId: '828906700610',
+	appId: '1:828906700610:web:4181ed60be5481217cd2db'
 };
 
 // Initialize Firebase
